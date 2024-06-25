@@ -30,27 +30,60 @@ const printStacks = () => {
 }
 
 // Next, what do you think this function should do?
-const movePiece = () => {
-  // Your code here
-
+const movePiece = (input, input2) => {
+  
+  const piece = stacks[input].pop()
+ stacks[input2].push(piece)
 }
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = () => {
+const isLegal = (startStack, endStack) => {
   // Your code here
+  //Create some logic that check that a higher value isn't going after a smaller value
+  const start = stacks[startStack];
+  const end = stacks[endStack];
+
+  if(start.length === 0){
+    return false;
+  } 
+
+  if(end.length === 0){
+    return true;
+  }
+  
+  const startTop = start[start.length - 1];
+  const endTop = end[end.length - 1];
+  
+  if(startTop > endTop){
+    console.log("Illegal move, try again.")
+  }
+
+  return startTop < endTop;
 
 }
 
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
   // Your code here
+const winningString = JSON.stringify([4, 3, 2, 1]);
 
+  if(JSON.stringify(stacks.b) === winningString || JSON.stringify(stacks.c) === winningString) {
+    return true;
+  }
+
+  return false;
 }
 
+// if(stacks.a.b.c == winningOrder) {
+//   return "You Win!";
+// }
 // When is this function called? What should it do with its argument?
 const towersOfHanoi = (startStack, endStack) => {
   // Your code here
+  if(isLegal(startStack, endStack)) {
+    movePiece(startStack, endStack)
 
+  }
 }
 
 const getPrompt = () => {
